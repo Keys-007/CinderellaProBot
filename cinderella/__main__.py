@@ -254,9 +254,8 @@ def help_button(bot: Bot, update: Update):
             query.message.reply_text(text=HELP_STRINGS,
                                     parse_mode=ParseMode.MARKDOWN,
                                     reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")))
-				
-				bot.answer_callback_query(query.id)
-				query.delete()
+            bot.answer_callback_query(query.id)
+            query.delete()
 
         # ensure no spinny white circle
         
