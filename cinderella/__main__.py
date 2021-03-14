@@ -233,25 +233,33 @@ def help_button(bot: Bot, update: Update):
 
         elif prev_match:
             curr_page = int(prev_match.group(1))
-            query.message.edit_text(HELP_STRINGS,
+            query.message.reply_text(HELP_STRINGS,
                                      parse_mode=ParseMode.MARKDOWN,
                                      reply_markup=InlineKeyboardMarkup(
                                          paginate_modules(curr_page - 1, HELPABLE, "help")))
 
         elif next_match:
             next_page = int(next_match.group(1))
-            query.message.edit_text(HELP_STRINGS,
+            query.message.reply_text(HELP_STRINGS,
                                      parse_mode=ParseMode.MARKDOWN,
                                      reply_markup=InlineKeyboardMarkup(
                                          paginate_modules(next_page + 1, HELPABLE, "help")))
 
         elif back_match:
+         try:
             query.message.edit_text(text=HELP_STRINGS,
-                                     parse_mode=ParseMode.MARKDOWN,
-                                     reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")))
+                                    parse_mode=ParseMode.MARKDOWN,
+                                    reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")))
+         except:
+            query.message.reply_text(text=HELP_STRINGS,
+                                    parse_mode=ParseMode.MARKDOWN,
+                                    reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")))
+				
+				bot.answer_callback_query(query.id)
+				query.delete()
 
         # ensure no spinny white circle
-        bot.answer_callback_query(query.id)
+        
     except BadRequest as excp:
         if excp.message == "Message is not modified":
             pass
