@@ -10,6 +10,7 @@ from cinderella import dispatcher
 from cinderella.modules.helper_funcs.chat_status import is_user_admin, user_admin, can_restrict, can_delete
 from cinderella.modules.log_channel import loggable
 from cinderella.modules.sql import antiflood_sql as sql
+from cinderella.modules.sql.approve_sql import is_approved
 
 FLOOD_GROUP = 3
 
@@ -23,7 +24,11 @@ def check_flood(bot: Bot, update: Update) -> str:
 
     if not user:  # ignore channels
         return ""
-
+    
+    if is_approved(chat.id, user.id):
+        sql.update_flood(chat.id, None)
+        return ""
+    
     # ignore admins
     if is_user_admin(chat, user.id):
         sql.update_flood(chat.id, None)
