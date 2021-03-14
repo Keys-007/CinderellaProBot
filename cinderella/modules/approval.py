@@ -1,9 +1,9 @@
-from Angelina.modules.disable import DisableAbleCommandHandler
-from Angelina import dispatcher, SUDO_USERS
-from Angelina.modules.helper_funcs.extraction import extract_user
+from cinderella.modules.disable import DisableAbleCommandHandler
+from cinderella import dispatcher, SUDO_USERS
+from cinderella.modules.helper_funcs.extraction import extract_user
 from telegram.ext import run_async, CallbackQueryHandler
-import Angelina.modules.sql.approve_sql as sql
-from Angelina.modules.helper_funcs.chat_status import (bot_admin, user_admin, promote_permission)
+import cinderella.modules.sql.approve_sql as sql
+from cinderella.modules.helper_funcs.chat_status import (bot_admin, user_admin, promote_permission)
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram import Update, Bot, Message, Chat, User
 from typing import Optional, List
