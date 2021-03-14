@@ -3,14 +3,13 @@ from cinderella import dispatcher, SUDO_USERS
 from cinderella.modules.helper_funcs.extraction import extract_user
 from telegram.ext import run_async, CallbackQueryHandler
 import cinderella.modules.sql.approve_sql as sql
-from cinderella.modules.helper_funcs.chat_status import (bot_admin, user_admin, promote_permission)
+from cinderella.modules.helper_funcs.chat_status import (bot_admin, user_admin)
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram import Update, Bot, Message, Chat, User
 from typing import Optional, List
 
 
 @user_admin
-@promote_permission
 @run_async
 def approve(bot: Bot, update: Update, args: List[str]) -> str:
 	 message = update.effective_message
@@ -32,7 +31,6 @@ def approve(bot: Bot, update: Update, args: List[str]) -> str:
 	 message.reply_text(f"[{member.user['first_name']}](tg://user?id={member.user['id']}) has been approved in {chat_title}! They will now be ignored by automated admin actions like locks, blocklists, and antiflood.", parse_mode=ParseMode.MARKDOWN)
      
 @user_admin
-@promote_permission
 @run_async
 def disapprove(bot: Bot, update: Update, args: List[str]) -> str:
 	 message = update.effective_message
