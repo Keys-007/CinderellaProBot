@@ -44,21 +44,21 @@ def info(bot: Bot, update: Update, args: List[str]):
     else:
         return
     
-    text = (f"<b>User Information:</b>\n"
-            f"ID: <code>{user.id}</code>\n"
-            f"Name: {html.escape(user.first_name)}")
+    text = (f"<b>★ Information ★:</b>\n"
+            f"•ID: <code>{user.id}</code>\n"
+            f"•Name: {html.escape(user.first_name)}")
 
     if user.last_name:
-        text += f"\nLast Name: {html.escape(user.last_name)}"
+        text += f"\n•Last Name: {html.escape(user.last_name)}"
 
     if user.username:
-        text += f"\nUsername: @{html.escape(user.username)}"
+        text += f"\n`•Username: @{html.escape(user.username)}"
 
-    text += f"\nPermanent user link: {mention_html(user.id, 'link')}"
+    text += f"\n•Permanent user link: {mention_html(user.id, 'link')}"
 
     num_chats = sql.get_user_num_chats(user.id)
-    text += f"\nChat count: <code>{num_chats}</code>"
-    text += "\nNumber of profile pics: {}".format(bot.get_user_profile_photos(user.id).total_count)
+    text += f"\n•Chat count: <code>{num_chats}</code>"
+    text += "\n•Number of profile pics: {}".format(bot.get_user_profile_photos(user.id).total_count)
    
     try:
         user_member = chat.get_member(user.id)
@@ -67,17 +67,17 @@ def info(bot: Bot, update: Update, args: List[str]):
             result = result.json()["result"]
             if "custom_title" in result.keys():
                 custom_title = result['custom_title']
-                text += f"\n⚜️This user holds the title⚜️ <b>{custom_title}</b> here."
+                text += f"\n✰This user holds the title✩ <b>{custom_title}</b> here."
     except BadRequest:
         pass
 
    
 
     if user.id == OWNER_ID:
-        text += "\n Yeah ,This Guy Is My Owner \nI Owe Him The Most!."
+        text += "\n★ Yeah ,This Guy Is My Owner ★\n⍟ I Owe Him The Most!."
         
     elif user.id in DEV_USERS:
-        text += "\nWew,This person is my dev👨🏻‍💻\nI Owe A Lot To Him!."     
+        text += "\n☆ Wew,This person is my dev👨🏻‍💻\nI Owe A Lot To Him!."     
         
     elif user.id in SUDO_USERS:
         text += "\nThis person is one of my sudo users ❤️! " \
