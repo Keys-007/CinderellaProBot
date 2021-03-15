@@ -11,7 +11,7 @@ from telegram.utils.helpers import mention_html
 from cinderella import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, DEV_USERS, WHITELIST_USERS
 from cinderella.__main__ import STATS, USER_INFO, TOKEN
 from cinderella.modules.disable import DisableAbleCommandHandler
-from cinderella.modules.helper_funcs.chat_status import user_admin, sudo_plus
+from cinderella.modules.helper_funcs.chat_status import user_admin, sudo_plus, dev_plus
 from cinderella.modules.helper_funcs.extraction import extract_user
 
 MARKDOWN_HELP = f"""
