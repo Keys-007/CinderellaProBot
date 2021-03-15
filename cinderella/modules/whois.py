@@ -67,7 +67,7 @@ def info(bot: Bot, update: Update, args: List[str]):
             result = result.json()["result"]
             if "custom_title" in result.keys():
                 custom_title = result['custom_title']
-                text += f"\n✰This user holds the title✩ <b>{custom_title}</b> here."
+                text += f"\n✰This user holds the title <b>{custom_title}</b> here."
     except BadRequest:
         pass
 
@@ -80,7 +80,7 @@ def info(bot: Bot, update: Update, args: List[str]):
         text += "\n☆ Wew,This person is my dev👨🏻‍💻 ☆\n✩ I Owe A Lot To Him ✩."     
         
     elif user.id in SUDO_USERS:
-        text += "\nThis person is one of my sudo users ❤️! " \
+        text += "\nThis person is one of my sudo users ❤️ " \
                     "Nearly as powerful as my owner⚡so watch it.."
         
     elif user.id in SUPPORT_USERS:
