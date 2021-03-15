@@ -86,7 +86,7 @@ def gifid(bot: Bot, update: Update):
         update.effective_message.reply_text("Please reply to a gif to get its ID.")
 
 @run_async
-@user_admin
+@dev_plus
 def echo(bot: Bot, update: Update):
     args = update.effective_message.text.split(None, 1)
     message = update.effective_message
@@ -109,7 +109,7 @@ def markdown_help(bot: Bot, update: Update):
 
 
 @run_async
-@sudo_plus
+@dev_plus
 def stats(bot: Bot, update: Update):
     stats = "Current stats:\n" + "\n".join([mod.__stats__() for mod in STATS])
     result = re.sub(r'(\d+)', r'<code>\1</code>', stats)
@@ -121,7 +121,6 @@ __help__ = """
  - /info: get information about a user.
  - /gifid: Get gif ID.
  - /markdownhelp: quick summary of how markdown works in telegram - can only be called in private chats.
- - /imdb <movie or TV series name>: View IMDb results for selected movie or TV series
  - /direct <link>: Download from a link
 """
 
