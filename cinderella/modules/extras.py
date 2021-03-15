@@ -69,28 +69,7 @@ ABUSE_STRINGS = (
   
 )
 
-SONG_STRINGS = (
- """🎶 I love it when you call me señorita
-I wish I could pretend I didn't need ya
-But every touch is ooh-la-la-la
-It's true, la-la-la"""
-"""🎶 First things first
-I'mma say all the words inside my head
-I'm fired up and tired of the way that things have been, oh-ooh
-The way that things have been, oh-ooh
-Second thing second
-Don't you tell me what you think that I can be
-I'm the one at the sail, I'm the master of my sea, oh-ooh
-The master of my sea, oh-ooh"""
-"""🎶 Here's to the ones that we got
-Cheers to the wish you were here, but you're not
-'Cause the drinks bring back all the memories
-Of everything we've been through
-Toast to the ones here today
-Toast to the ones that we lost on the way
-'Cause the drinks bring back all the memories
-And the memories bring back, memories bring back you"""
- )
+
 
 @run_async
 def abuse(bot: Bot, update: Update):
@@ -101,24 +80,13 @@ def abuse(bot: Bot, update: Update):
     else:
       message.reply_text(random.choice(ABUSE_STRINGS))
 
-@run_async
-def sing(bot: Bot, update: Update):
-    bot.sendChatAction(update.effective_chat.id, "typing") # Bot typing before send messages
-    message = update.effective_message
-    if message.reply_to_message:
-      message.reply_to_message.reply_text(random.choice(SONG_STRINGS))
-    else:
-      message.reply_text(random.choice(SONG_STRINGS))
 
 __help__ = """
 - /abuse : Insult someone in English.
-- /sing : Random Song Lyrics.
 """
 
 __mod_name__ = "EXTRAS"
 
 ABUSE_HANDLER = DisableAbleCommandHandler("abuse", abuse)
-SING_HANDLER = DisableAbleCommandHandler("sing", sing)
 
 dispatcher.add_handler(ABUSE_HANDLER)
-dispatcher.add_handler(SING_HANDLER)
