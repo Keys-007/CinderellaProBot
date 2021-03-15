@@ -15,6 +15,7 @@ from telegram.ext import run_async
 
 from cinderella.modules.disable import DisableAbleCommandHandler
 from cinderella import dispatcher, StartTime
+from cinderella.modules.helper_funcs.chat_status import sudo_plus, dev_plus
 
 from requests import get
 
@@ -48,6 +49,7 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 @run_async
+@dev_plus
 def ping(bot: Bot, update: Update):
     start_time = time.time()
     requests.get('https://api.telegram.org')
@@ -57,6 +59,7 @@ def ping(bot: Bot, update: Update):
     update.effective_message.reply_text(f"🏓 Pong!\n🔊<b>Reply took:</b> {ping_time}s\n⚡️<b>Service Uptime:</b> {uptime}", parse_mode=ParseMode.HTML)
 
 @run_async
+@dev_plus
 def uptime(bot: Bot, update: Update):
 	uptime = get_readable_time((time.time() - StartTime))
 	update.effective_message.reply_text(f"⚡Service Uptime: {uptime}")    
