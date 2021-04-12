@@ -4,6 +4,7 @@ emoji
 beautifulsoup4
 telegraph
 requests
+spamrefiner
 sqlalchemy==1.3.20
 tswift
 coffeehouse
