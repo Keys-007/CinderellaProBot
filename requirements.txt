@@ -5,6 +5,7 @@ beautifulsoup4
 telegraph
 requests
 spamrefiner
+spamrefiner==0.0.2
 sqlalchemy==1.3.20
 tswift
 coffeehouse
