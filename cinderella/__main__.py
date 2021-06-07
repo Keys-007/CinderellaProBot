@@ -11,14 +11,14 @@ import requests
 from parsel import Selector
 import json
 from urllib.request import urlopen
-
+from sys import argv
 from telegram import Message, Chat, Update, Bot, User
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton
 from telegram.error import Unauthorized, BadRequest, TimedOut, NetworkError, ChatMigrated, TelegramError
 from telegram.ext import CommandHandler, Filters, MessageHandler, CallbackQueryHandler
 from telegram.ext.dispatcher import run_async, DispatcherHandlerStop, Dispatcher
 from telegram.utils.helpers import escape_markdown
-from cinderella import dispatcher, updater, TOKEN, WEBHOOK, SUDO_USERS, OWNER_ID, CERT_PATH, PORT, URL, LOGGER, OWNER_NAME, ALLOW_EXCL, client
+from cinderella import dispatcher, updater, TOKEN, WEBHOOK, SUDO_USERS, OWNER_ID, CERT_PATH, PORT, URL, LOGGER, OWNER_NAME, ALLOW_EXCL, telethn
 from cinderella.modules import ALL_MODULES
 from cinderella.modules.helper_funcs.chat_status import is_user_admin
 from cinderella.modules.helper_funcs.misc import paginate_modules
@@ -29,6 +29,7 @@ from cinderella.modules.connection import connect_button
 PM_START_TEXT = """
 _Hello_ *{}*
 _I Am_ *{}*\n_I Am A Modular Group Managing Bot To Help You Manage Your Groups With Fun & Ease\n_Feel Free Add Me In Your Groups❤️\n_Check Out The Below Buttons To Explore Me_ 
+
 """
 
 
@@ -55,7 +56,6 @@ def vercheck() -> str:
     return str(VERSION)
 
 
-
 IMPORTED = {}
 MIGRATEABLE = []
 HELPABLE = {}
@@ -71,7 +71,7 @@ GDPR = []
 
 START_IMG = os.environ.get('START_IMG', None)
 if START_IMG is None:
-    img = "https://telegra.ph/file/f3b4e367dde4f67c80f40.jpg"
+    img = "https://telegra.ph/file/c5885c04a68babfd97abe.jpgOk"
 else:
   img = START_IMG    
     
@@ -158,7 +158,7 @@ def start(bot: Bot, update: Update, args: List[str]):
             send_start(bot, update)
     else:
         update.effective_message.reply_text("I Am Online ^_^\nPM me :) if you have any questions on how to use me !".format(bot.first_name))
-                                                
+
 
 def send_start(bot, update):
     #Try to remove old message
@@ -174,7 +174,6 @@ def send_start(bot, update):
 
     keyboard = [[InlineKeyboardButton(text="Help",callback_data="help_back"),InlineKeyboardButton(text="🤴🏻Creator🤴🏻",url="https://t.me/SonOfLars"),InlineKeyboardButton(text="⚜️Owner⚜️",url="https://t.me/Denzid_xd"),InlineKeyboardButton(text="🤑 Sponsor 🤑",url="https://t.me/MaskedVirus")]]
     keyboard += [[InlineKeyboardButton(text="⚙️Maintainer⚙️",url="https://t.me/Sawada"),InlineKeyboardButton(text="⚜️Add Me⚜️",url="t.me/{}?startgroup=true".format(bot.username))]]
-     
 
     update.effective_message.reply_photo(img, PM_START_TEXT.format(escape_markdown(first_name), escape_markdown(bot.first_name), OWNER_NAME, OWNER_ID), 
                                          reply_markup=InlineKeyboardMarkup(keyboard), disable_web_page_preview=True, parse_mode=ParseMode.MARKDOWN)
@@ -248,17 +247,12 @@ def help_button(bot: Bot, update: Update):
         elif back_match:
          try:
             query.message.edit_text(text=HELP_STRINGS,
-                                    parse_mode=ParseMode.MARKDOWN,
-                                    reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")))
-         except:
-            query.message.reply_text(text=HELP_STRINGS,
-                                    parse_mode=ParseMode.MARKDOWN,
-                                    reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")))
-            bot.answer_callback_query(query.id)
-            query.message.delete()
+                                     parse_mode=ParseMode.MARKDOWN,
+                                     reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")))
 
         # ensure no spinny white circle
-        
+        bot.answer_callback_query(query.id)
+        query.message.delete()
     except BadRequest as excp:
         if excp.message == "Message is not modified":
             pass
@@ -281,7 +275,8 @@ def get_help(bot: Bot, update: Update):
         update.effective_message.reply_text("Contact me in PM to get the list of possible commands.",
                                             reply_markup=InlineKeyboardMarkup(
                                                 [[InlineKeyboardButton(text="⚜️Help⚜️",url="t.me/{}?start=help".format(bot.username))]]))
-        return
+         return
+                                               
 
     elif len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
         module = args[1].lower()
@@ -342,7 +337,7 @@ def settings_button(bot: Bot, update: Update):
             query.message.reply_text(text=text,
                                      parse_mode=ParseMode.MARKDOWN,
                                      reply_markup=InlineKeyboardMarkup(
-                                         [[InlineKeyboardButton(text="🚶🏻‍♂️Back🚶🏻‍♂️",
+                                         [[InlineKeyboardButton(text="🏃🏻‍♂️Back🏃🏻‍♂️",
                                                                 callback_data="stngs_back({})".format(chat_id))]]))
 
         elif prev_match:
@@ -602,12 +597,17 @@ def main():
     else:
         LOGGER.info("Cinderella running...")
         updater.start_polling(timeout=15, read_latency=4)
-        client.run_until_disconnected()
-
+        
+    if len(argv) not in (1, 3, 4):
+        telethn.disconnect()
+    else:
+        telethn.run_until_disconnected()
+      
+      
     updater.idle()
 
     
 if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
-    client.start(bot_token=TOKEN)
+    telethn.start(bot_token=TOKEN)
     main()
