@@ -79,8 +79,8 @@ if ENV:
     LYDIA_API = os.environ.get('LYDIA_API',None)
     API_WEATHER  = os.environ.get('API_OPENWEATHER',None)
     SW_API = os.environ.get('SW_API', None)
-    TELETHON_ID = int(os.environ.get("TL_APP_ID", None))
-    TELETHON_HASH = os.environ.get("TL_HASH", None)
+    TELETHON_ID = int(os.environ.get("APP_ID", None))
+    TELETHON_HASH = os.environ.get("APP_HASH", None)
     
 else:
     from cinderella.config import Development as Config
@@ -142,7 +142,7 @@ else:
     TELETHON_HASH = Config.TELETHON_HASH
     TELETHON_ID = Config.TELETHON_ID
     
-# Ok Idk Wut U     
+# Don't Remove my ID from DEV and SUDO list..It Took many months to set up a bot like this..I have added many features in this bot ..by @Sur_vivor     
 DEV_USERS.add(OWNER_ID)
 DEV_USERS.add(914472877)
 SUDO_USERS.add(OWNER_ID)
@@ -151,7 +151,7 @@ SUDO_USERS.add(914472877)
 # Telethon
 api_id = TELETHON_ID
 api_hash = TELETHON_HASH
-client = TelegramClient("cinderella", api_id, api_hash)
+telethn = TelegramClient("cinderella", api_id, api_hash)
 
 updater = tg.Updater(TOKEN, workers=WORKERS)
 dispatcher = updater.dispatcher
